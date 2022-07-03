@@ -117,6 +117,26 @@ contract DeTweet is Nft {
         view
         returns (address[] memory)
     {
+        return _getFollowersList(_addr);
+    }
+
+    /**
+     * @dev get followers for a user, anyone can call
+     * msg.sender is used as param
+     */
+    function getFollowersList() external view returns (address[] memory) {
+        return _getFollowersList(msg.sender);
+    }
+
+    /**
+     * @dev get followers for a user, private
+     * @param _addr user address
+     */
+    function _getFollowersList(address _addr)
+        private
+        view
+        returns (address[] memory)
+    {
         Data.user storage u = addressToUser[_addr];
         uint256 len = u.numberOfFollowers;
         address[] memory a = new address[](len);
@@ -131,6 +151,22 @@ contract DeTweet is Nft {
      * @param _addr user address
      */
     function getFollowersCount(address _addr) external view returns (uint256) {
+        return _getFollowersCount(_addr);
+    }
+
+    /**
+     * @dev get followers count for a user, anyone can call
+     * msg.sender is used as param
+     */
+    function getFollowersCount() external view returns (uint256) {
+        return _getFollowersCount(msg.sender);
+    }
+
+    /**
+     * @dev get followers count for a user, private
+     * @param _addr user address
+     */
+    function _getFollowersCount(address _addr) private view returns (uint256) {
         return addressToUser[_addr].numberOfFollowers;
     }
 
@@ -168,6 +204,26 @@ contract DeTweet is Nft {
      */
     function getNumberOfTweetsbyUser(address _addr)
         external
+        view
+        returns (uint256)
+    {
+        return _getNumberOfTweetsbyUser(_addr);
+    }
+
+    /**
+     * @dev get number of tweets for a user, anyone can call
+     * msg.sender is used as param
+     */
+    function getNumberOfTweetsbyUser() external view returns (uint256) {
+        return _getNumberOfTweetsbyUser(msg.sender);
+    }
+
+    /**
+     * @dev get number of tweets for a user, private
+     * @param _addr address of user
+     */
+    function _getNumberOfTweetsbyUser(address _addr)
+        private
         view
         returns (uint256)
     {
