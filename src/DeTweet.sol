@@ -31,6 +31,18 @@ contract DeTweet is Nft {
         emit LogTweet(numberOfTweets - 1, _message);
     }
 
+    function ReTweet(uint256 _tweetIndex) external {
+        Data.tweet storage t = tweetsList[_tweetIndex];
+        require(t.owner != msg.sender, "owner cannot retweet");
+        require(t.isReTweet[msg.sender] == 0, "already retweeted");
+        t.numberOfRetweets += 1;
+        uint256 _numberOfRetweets = t.numberOfRetweets;
+        t.isReTweet[msg.sender] = _numberOfRetweets;
+        t.idToReTweetAddress[_numberOfRetweets] = msg.sender;
+        Data.user storage reTweeter = addressToUser[msg.sender];
+        reTweeter.reTweetsList.push(_tweetIndex);
+    }
+
     function MintTweet(uint256 _tweetIndex) external returns (uint256) {
         Data.tweet storage t = tweetsList[_tweetIndex];
         require(t.minted == false, "NFT already minted");
