@@ -31,6 +31,10 @@ contract DeTweet is Nft {
         emit LogTweet(numberOfTweets - 1, _message);
     }
 
+    /**
+     * @dev Function to retweet, called by user only
+     * @param _tweetIndex tweet index
+     */
     function ReTweet(uint256 _tweetIndex) external {
         Data.tweet storage t = tweetsList[_tweetIndex];
         require(t.owner != msg.sender, "owner cannot retweet");
@@ -43,6 +47,10 @@ contract DeTweet is Nft {
         reTweeter.reTweetsList.push(_tweetIndex);
     }
 
+    /**
+     * @dev Function to mint tweet, called by tweet only only
+     * @param _tweetIndex tweet index
+     */
     function MintTweet(uint256 _tweetIndex) external returns (uint256) {
         Data.tweet storage t = tweetsList[_tweetIndex];
         require(t.minted == false, "NFT already minted");
