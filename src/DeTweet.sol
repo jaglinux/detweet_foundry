@@ -48,7 +48,7 @@ contract DeTweet is Nft {
     }
 
     /**
-     * @dev Function to mint tweet, called by tweet only only
+     * @dev Function to mint tweet, called by tweet owner only
      * @param _tweetIndex tweet index
      */
     function MintTweet(uint256 _tweetIndex) external returns (uint256) {
