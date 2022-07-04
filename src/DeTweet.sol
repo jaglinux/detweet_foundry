@@ -210,12 +210,40 @@ contract DeTweet is Nft {
     }
 
     /**
+     * @dev get retweet address list for a tweet, anyone can call
+     * @param _index tweet index
+     */
+    function getReTweetList(uint256 _index)
+        external
+        view
+        returns (address[] memory)
+    {
+        require(_index < numberOfTweets, "invalid Tweet id");
+        Data.tweet storage t = tweetsList[_index];
+        uint256 len = t.numberOfRetweets;
+        address[] memory a = new address[](len);
+        for (uint256 i = 0; i < len; i++) {
+            a[i] = t.idToReTweetAddress[i + 1];
+        }
+        return a;
+    }
+
+    /**
      * @dev get likes count for a tweet, anyone can call
      * @param _index tweet index
      */
     function getLikesCount(uint256 _index) external view returns (uint256) {
         require(_index < numberOfTweets, "invalid Tweet id");
         return tweetsList[_index].numberOfLikes;
+    }
+
+    /**
+     * @dev get retweet count for a tweet, anyone can call
+     * @param _index tweet index
+     */
+    function getReTweetCount(uint256 _index) external view returns (uint256) {
+        require(_index < numberOfTweets, "invalid Tweet id");
+        return tweetsList[_index].numberOfRetweets;
     }
 
     /**
